@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nginx:
+    restart: always
+    build: .
+    ports:
+      - "80:80"
+    links:
+      - echo
+  echo:
+    restart: always
+    image: jmalloc/echo-server
+

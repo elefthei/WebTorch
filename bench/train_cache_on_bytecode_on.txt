@@ -1,0 +1,10 @@
+Running 30s test @ http://localhost:3000/train
+  12 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.12s   526.20ms   1.85s    71.43%
+    Req/Sec     2.55      1.53     4.00     72.31%
+  130 requests in 30.11s, 20.44KB read
+  Socket errors: connect 157, read 126, write 1, timeout 123
+Requests/sec:      4.32
+Transfer/sec:     695.20B
+
