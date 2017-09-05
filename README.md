@@ -1,4 +1,7 @@
+![WebTorch logo](/public/logo.png?raw=true "WebTorch Deep Learning server")
+
 # WebTorch
+
 Nginx + torch + LuaJIT packaged together
 
 ## Building WebTorch container
