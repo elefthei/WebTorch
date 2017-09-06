@@ -1,5 +1,5 @@
--- example HTTP POST script which demonstrates setting the
--- HTTP method, body, and adding a header
+-- Example HTTP POST script with body and headers
+-- Sends a serialized Torch 2D DoubleTensor
 wrk.method = "POST"
 wrk.body   = string.format([[
 4
