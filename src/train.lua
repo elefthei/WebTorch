@@ -2,8 +2,11 @@ require "torch"
 require "nn"
 require "ngx"
 
-local webtensor = {}
+-- Load the mlp from shared memory
+local mlp = ngx.shared.mlp
 
+-- Define webtensor deserializer
+local webtensor = {}
 function webtensor.recv()
   -- Read tensor from request body
   ngx.req.read_body()  -- explicitly read the req body
@@ -21,9 +24,6 @@ function webtensor.recv()
   file:seek(1) -- comes back at the beginning of the file
   return file:readObject() -- gets a Tensor back (or any object sent)
 end
-
--- Load the mlp from shared memory
-local mlp = ngx.shared.mlp
 
 -- Mean squared error criterion
 criterion = nn.MSECriterion()
