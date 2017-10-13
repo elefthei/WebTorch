@@ -56,5 +56,5 @@ mlp:backward(input, criterion:backward(mlp.output, output))
 mlp:updateParameters(0.01)
 
 -- Save the mlp to shared memory
-ngx.say(string.format("Trained with random (%f, %f)", input[1], input[2]))
+ngx.say(string.format("[%f, %f]", input[1], input[2]))
 ngx.shared.mlp = mlp

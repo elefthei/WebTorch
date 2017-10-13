@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     sudo \
     wget \
+    libssl-dev \
     ca-certificates
 
 RUN git clone https://github.com/torch/distro.git /usr/src/torch --recursive && \
