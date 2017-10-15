@@ -59,7 +59,11 @@ RUN mkdir /src && \
 ADD . /src/
 RUN cd /src && \
     make && \
+    cd samples && \
+    make && \
+    cd .. && \
     cp -r lib /opt/nginx/ && \
+    cp samples/lib/* /opt/nginx/lib/ && \
     cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf
 
 CMD ["nginx", "-g", "daemon off;"]
