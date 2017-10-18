@@ -17,7 +17,7 @@ $(LIBS): $(SRCS)
 test:
 	@echo "========= Building WebTorch docker image"
 	docker rm -f webtorch-test || true
-	docker build -t webtorch .
+	docker build -qt webtorch .
 	docker run --name webtorch-test -it webtorch sh test/run.sh
 	@echo "========= WebTorch tests completed"
 
