@@ -1,3 +1,4 @@
+.PHONY: all init test clean
 SRCS = src/train.lua src/output.lua src/init.lua
 PREFIX = lib/
 LUA = luajit
@@ -12,5 +13,19 @@ init:
 
 $(LIBS): $(SRCS)
 	$(LUA) $(LUAFLAGS) $(addprefix src/,$(notdir $(addsuffix .lua, $(basename $@)))) $@
+
+test:
+	@echo "========= Building WebTorch docker image"
+	docker rm -f webtorch-test || true
+	docker build -t webtorch .
+	docker run -p 3000:80 --name webtorch-test -dt webtorch
+	@echo "========= WebTorch image is running!"
+	@sleep 2s
+	luajit test/test.lua
+	docker kill webtorch-test
+	docker rm -f webtorch-test || true
+	@echo "========= WebTorch tests completed"
+
 clean:
 	rm -rf $(LIBS)
+
