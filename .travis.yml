@@ -1,8 +1,5 @@
 sudo: required
 
-language: lua
-sudo: required
-
 services:
   - docker
  
