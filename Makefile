@@ -18,12 +18,7 @@ test:
 	@echo "========= Building WebTorch docker image"
 	docker rm -f webtorch-test || true
 	docker build -t webtorch .
-	docker run -p 3000:80 --name webtorch-test -dt webtorch
-	@echo "========= WebTorch image is running!"
-	@sleep 2s
-	luajit test/test.lua
-	docker kill webtorch-test
-	docker rm -f webtorch-test || true
+	docker run --name webtorch-test -it webtorch sh test/run.sh
 	@echo "========= WebTorch tests completed"
 
 clean:
