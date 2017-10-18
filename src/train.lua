@@ -13,12 +13,11 @@ function webtensor.recv()
   local data = ngx.req.get_body_data()
   if not data then
     ngx.status = ngx.HTTP_BAD_REQUEST
-    ngx.say("Body not found")
+    ngx.say("Warning: Body not found")
     -- to cause quit the whole request rather than the current phase handler
     ngx.exit(ngx.HTTP_BAD_REQUEST)
     return nil
   end
-
   local file = torch.MemoryFile() -- creates a file in memory
   file:writeString(data)
   file:seek(1) -- comes back at the beginning of the file
@@ -54,7 +53,7 @@ mlp:zeroGradParameters()
 mlp:backward(input, criterion:backward(mlp.output, output))
 -- (3) update parameters with a 0.01 learning rate
 mlp:updateParameters(0.01)
-
+-- return the output tensor
+ngx.say(torch.serialize(output, 'ascii'))
 -- Save the mlp to shared memory
-ngx.say(string.format("[%f, %f]", input[1], input[2]))
 ngx.shared.mlp = mlp
