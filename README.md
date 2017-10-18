@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/elefthei/WebTorch.svg?branch=master)](https://travis-ci.org/elefthei/WebTorch)
+
 ![WebTorch logo](/public/logo.png?raw=true "WebTorch Deep Learning server")
 
 Nginx + torch + LuaJIT packaged together
