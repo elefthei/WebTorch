@@ -63,4 +63,5 @@ RUN make && \
     cp -r lib /opt/nginx/ && \
     cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf
 
+EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]

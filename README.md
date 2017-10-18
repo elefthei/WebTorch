@@ -18,7 +18,7 @@ docker-compose build
 
 Running (docker):
 ```
-docker run -p 80:80 -it webtorch
+docker run -p 3000:3000 -it webtorch
 ```
 
 Running (docker-compose):
