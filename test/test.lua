@@ -23,7 +23,7 @@ function webtest.trainXOR()
 end
 
 function webtest.outputXOR()
-  response = requests.get{url = 'http://localhost/impl/output'}
+  response = requests.get{url = 'http://localhost:3000/impl/output'}
   -- XOR less than zero
   tester:assertlt(tonumber(response.text), 0, "XOR output of 0.5 ^ 0.5 should be a negative number")
 end
