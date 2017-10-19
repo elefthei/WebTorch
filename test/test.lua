@@ -1,29 +1,34 @@
 torch = require('torch')
 requests = require('requests')
 
-describe("Webtorch integration tests", function()
-  describe("Torch tests", function()
-    it("Make sure Torch was installed", function()
-      tensor = torch.Tensor(4,5)
-      assert.are.equal(tensor:nDimension(), 2)
-    end)
-  end)
+local webtest = torch.TestSuite()
+local tester = torch.Tester()
+local host = 'http://localhost:3000'
 
-  describe("WebTorch train tests", function()
-    it("It should be able to train with POST", function()
-      numbers = torch.rand(2)
-      response = requests.post{url = 'http://localhost:3000/train', data = torch.serialize(numbers)}
-      print(response.text)
-    end)
-  end)
+function webtest.trainXOR()
+  -- Define random input 2d tensor
+  input = torch.rand(2)
+  req_data = torch.serialize(input, 'ascii')
+  req_headers = { ["Content-Type"] = "text/plain" }
+  resp = requests.post{url = host .. "/train", headers = req_headers, data = req_data}
+  tens_response = torch.deserialize(resp.text, 'ascii')
+  -- Replicate the XOR logic in src/train.lua
+  local expected = torch.Tensor(1)
+  if input[1]*input[2] > 0 then  -- calculate label for XOR function
+	expected[1] = -1
+  else
+	expected[1] = 1
+  end
+  tester:eq(expected, tens_response, "XOR train output does not match expected value")
 
-  describe("WebTorch output tests", function()
-    it("It should be able to output with GET", function()
-      response = requests.get{url = 'http://localhost:3000/output'}
-      -- XOR less than zero
-      assert.True(tonumber(response.text) < 0)
-    end)
-  end)
+end
 
-end)
+function webtest.outputXOR()
+  response = requests.get{url = host .. "/output"}
+  -- XOR less than zero
+  tester:assertlt(tonumber(response.text), 0, "XOR output of 0.5 ^ 0.5 should be a negative number")
+end
+
+tester:add(webtest)
+tester:run()
 

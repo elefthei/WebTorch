@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/elefthei/WebTorch.svg?branch=master)](https://travis-ci.org/elefthei/WebTorch)
+
 ![WebTorch logo](/public/logo.png?raw=true "WebTorch Deep Learning server")
 
 Nginx + torch + LuaJIT packaged together
@@ -18,7 +20,7 @@ docker-compose build
 
 Running (docker):
 ```
-docker run -p 80:80 -it webtorch
+docker run -p 3000:3000 -it webtorch
 ```
 
 Running (docker-compose):
