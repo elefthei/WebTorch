@@ -10,7 +10,7 @@ function webtest.trainXOR()
   input = torch.rand(2)
   req_data = torch.serialize(input, 'ascii')
   req_headers = { ["Content-Type"] = "text/plain" }
-  resp = requests.post{url = host .. "/train", headers = req_headers, data = req_data}
+  resp = requests.post{url = host .. "/v1/train", headers = req_headers, data = req_data}
   tens_response = torch.deserialize(resp.text, 'ascii')
   -- Replicate the XOR logic in src/train.lua
   local expected = torch.Tensor(1)
@@ -24,7 +24,7 @@ function webtest.trainXOR()
 end
 
 function webtest.outputXOR()
-  response = requests.get{url = host .. "/output"}
+  response = requests.get{url = host .. "/v1/output"}
   -- XOR less than zero
   tester:assertlt(tonumber(response.text), 0, "XOR output of 0.5 ^ 0.5 should be a negative number")
 end
