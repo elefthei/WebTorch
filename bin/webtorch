@@ -1,0 +1,28 @@
+#!/bin/sh
+
+NGINX_LIB=/opt/nginx/lib/
+
+start()
+{
+    if [ "$activate_app" = "default" ];
+    then
+        nginx -g 'daemon off;'
+    else
+        echo "Activate app: $activate_app";
+        
+        if [ -d "/src/samples/lib/$activate_app/" ]; then
+            find /src/samples/lib/$activate_app/ -name '*.lbjc' -exec cp -f {} $NGINX_LIB \;
+            nginx -g 'daemon off;'
+        else
+            echo "The app $activate_app is not found in /src/samples"
+        fi
+    fi
+}
+
+stop()
+{
+    nginx -s stop
+}
+
+[ "$1" = "start" ] && start
+[ "$1" = "stop" ] && stop

@@ -65,8 +65,10 @@ WORKDIR /src
 
 RUN make && \
     cp -r lib /opt/nginx/ && \
-    cp samples/lib/* /opt/nginx/lib/ && \
     cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf
 
+RUN chmod 755 bin/webtorch
+
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+ENV activate_app "default"
+ENTRYPOINT ["bin/webtorch", "start"]

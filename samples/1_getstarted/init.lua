@@ -12,8 +12,6 @@ require "image"
 ----------------------------------------------------------------------
 -- snippet 4
 n = nn.SpatialConvolution(1,16,12,12)
-ngx.say("neural network configured")
-
 ngx.shared.n = n
 
 
