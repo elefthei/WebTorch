@@ -71,4 +71,4 @@ RUN chmod 755 bin/webtorch
 
 EXPOSE 3000
 ENV activate_app "default"
-ENTRYPOINT ["bin/webtorch", "start"]
+CMD ["bin/webtorch", "start"]
