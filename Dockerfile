@@ -65,9 +65,9 @@ WORKDIR /src
 
 RUN make && \
     cp -r lib /opt/nginx/ && \
-    cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf
+    cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf && \
+    chmod 755 bin/webtorch
 
-RUN chmod 755 bin/webtorch
 
 EXPOSE 3000
 ENV activate_app "default"
