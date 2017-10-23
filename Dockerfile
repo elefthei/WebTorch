@@ -57,11 +57,18 @@ RUN mkdir /src && \
     luarocks install lua-requests
 
 ADD . /src/
+
+WORKDIR /src/samples
+RUN make
+
 WORKDIR /src
 
 RUN make && \
     cp -r lib /opt/nginx/ && \
-    cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf
+    cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf && \
+    chmod 755 bin/webtorch
+
 
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+ENV activate_app "default"
+CMD ["bin/webtorch", "start"]
