@@ -37,10 +37,10 @@ $ curl http://localhost:3000/v1/train
 ```
 
 ### POST /v1/train
-*Body*: 2D serialized Torch tensor (see `bench/script/train_post.lua` for example)
+*Body*: 2D serialized Torch tensor (see `benchmarks/script/train.lua` for example)
 Will train the XOR neural network with a serialized 2D Torch tensor sample.
 ```
-$ wrk -t12 -c400 -d30s -s bench/scripts/train_post.lua http://localhost:3000/v1/train
+$ wrk -t12 -c400 -d30s -s benchmarks/scripts/train.lua http://localhost:3000/v1/train
 ```
 
 ### GET /v1/output

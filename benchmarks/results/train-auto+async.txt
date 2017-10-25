@@ -1,0 +1,10 @@
+Eleftherioss-MacBook-Air:WebTorch lef$ wrk -t4 -c200 -d30s -s benchmarks/scripts/train.lua http://localhost:3000/v1/train
+Running 30s test @ http://localhost:3000/v1/train
+  4 threads and 200 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   166.67ms  136.02ms   1.95s    95.80%
+    Req/Sec   224.42     96.45   646.00     71.76%
+  26135 requests in 30.09s, 6.16MB read
+  Socket errors: connect 0, read 135, write 31, timeout 193
+Requests/sec:    868.69
+Transfer/sec:    209.50KB
