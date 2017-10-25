@@ -13,7 +13,12 @@ docker build -t webtorch .
 
 ## Running WebTorch container
 
-Running (docker/nvidia-docker):
+Running daemon(docker/nvidia-docker):
+```
+docker run -p 3000:3000 -d webtorch
+```
+
+Running in debug(docker/nvidia-docker):
 ```
 docker run -p 3000:3000 -it webtorch
 ```
