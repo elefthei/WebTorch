@@ -6,26 +6,16 @@ WebTorch takes advantage of the versatile LuaJIT compiler to bring together Ngin
 
 ## Building WebTorch container
 
-Building (docker):
+Building (docker/nvidia-docker):
 ```
 docker build -t webtorch .
 ```
 
-Building (docker-compose):
-```
-docker-compose build
-```
-
 ## Running WebTorch container
 
-Running (docker):
+Running (docker/nvidia-docker):
 ```
 docker run -p 3000:3000 -it webtorch
-```
-
-Running (docker-compose):
-```
-docker-compose up
 ```
 
 ## Usage:
