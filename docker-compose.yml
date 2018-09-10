@@ -4,10 +4,5 @@ services:
     restart: always
     build: .
     ports:
-      - "80:80"
-    links:
-      - echo
-  echo:
-    restart: always
-    image: jmalloc/echo-server
+      - "3000:3000"
 

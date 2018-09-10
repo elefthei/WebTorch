@@ -1,13 +1,15 @@
 FROM debian:jessie
 
-RUN apt-get update && apt-get upgrade && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     cmake \
     git \
     make \
     gcc \
     g++ \
     sudo \
-    wget
+    wget \
+    libssl-dev \
+    ca-certificates
 
 RUN git clone https://github.com/torch/distro.git /usr/src/torch --recursive && \
     cd /usr/src/torch && \
@@ -25,10 +27,8 @@ RUN git clone https://github.com/simpl/ngx_devel_kit.git /usr/src/ngx-dev-kit &&
     wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
     tar -xzf nginx-${NGINX_VERSION}.tar.gz && \
     rm nginx-${NGINX_VERSION}.tar.gz && \
-    rm pcre-${PCRE_VERSION}.tar.gz
-
-# SYMlink to linluajit-5.1.so
-RUN ln -sf /usr/src/torch/install/lib/libluajit.so /usr/src/torch/install/lib/libluajit-5.1.so.2.1 && \
+    rm pcre-${PCRE_VERSION}.tar.gz && \ 
+    ln -sf /usr/src/torch/install/lib/libluajit.so /usr/src/torch/install/lib/libluajit-5.1.so.2.1 && \
     ln -sf /usr/src/torch/install/lib/libluajit.so /usr/src/torch/install/lib/libluajit-5.1.so.2 && \
     ln -sf /usr/src/torch/install/lib/libluajit.so /usr/src/torch/install/lib/libluajit-5.1.so
 
@@ -52,12 +52,23 @@ RUN mkdir /src && \
          --add-module=/usr/src/ngx-dev-kit \
          --add-module=/usr/src/lua-nginx-module && \
     make -j2 && \
-    make install
+    make install && \
+    ln -sf /usr/lib/x86_64-linux-gnu/libssl.* /usr/lib/ && \
+    luarocks install lua-requests
 
 ADD . /src/
-RUN cd /src && \
-    make && \
-    cp -r lib /opt/nginx/ && \
-    cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf
 
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /src/samples
+RUN make
+
+WORKDIR /src
+
+RUN make && \
+    cp -r lib /opt/nginx/ && \
+    cp nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf && \
+    chmod 755 bin/webtorch
+
+
+EXPOSE 3000
+ENV activate_app "default"
+CMD ["bin/webtorch", "start"]
