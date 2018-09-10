@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/elefthei/WebTorch.svg?branch=master)](https://travis-ci.org/elefthei/WebTorch) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/elefthei/WebTorch/issues)
 
-![WebTorch logo](/public/logo.png?raw=true "WebTorch Deep Learning server")
+![WebTorch logo](https://elefthei.github.io/assets/css/images/webtorch.jpg)
 
 WebTorch takes advantage of the versatile LuaJIT compiler to bring together Nginx and Torch, creating an equivalent system to Tensorflow serve, but based on a RESTful API instead of protobuf. Multiple data formats are supported (tensors, images etc.) 
 
